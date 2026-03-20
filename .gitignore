@@ -3,7 +3,16 @@
 /local.properties
 /.idea/caches
 /.idea/libraries
+/.idea/.gitignore
+/app/.gitignore
+/.idea/.name
+/.idea/compiler.xml
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/inspectionProfiles/Project_Default.xml
 /.idea/modules.xml
+/.idea/runConfigurations.xml
+/.idea/vcs.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
@@ -13,3 +22,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+/gradle/gradle-daemon-jvm.properties
+/gradle/wrapper/gradle-wrapper.jar
+/gradlew
+/gradlew.bat
