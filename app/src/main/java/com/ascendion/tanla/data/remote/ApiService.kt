@@ -1,4 +1,4 @@
-package com.ascendion.tanla.data
+package com.ascendion.tanla.data.remote
 
 import retrofit2.http.POST
 

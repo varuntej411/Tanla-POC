@@ -25,3 +25,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Tanla Poc"
 include(":app")
+include(":TanlaSdk")

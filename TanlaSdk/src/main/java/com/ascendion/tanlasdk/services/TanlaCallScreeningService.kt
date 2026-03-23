@@ -1,12 +1,9 @@
-package com.ascendion.tanla.services
+package com.ascendion.tanlasdk.services
 
 import android.content.Intent
-import android.os.Build
 import android.telecom.Call
 import android.telecom.CallScreeningService
-import androidx.annotation.RequiresApi
 
-@RequiresApi(Build.VERSION_CODES.N)
 class TanlaCallScreeningService: CallScreeningService() {
 
     override fun onScreenCall(callDetails: Call.Details) {

@@ -19,6 +19,9 @@ kotlinxSerialization = "1.10.0"
 retrofitSerialization = "1.0.0"
 room = "2.8.4"
 navigation-compose = "2.9.7"
+appcompat = "1.7.1"
+material = "1.4.0"
+ui = "1.10.5"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -35,11 +38,11 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycleRuntimeKtx" }
 
-androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" , version.ref="ui"}
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref ="material" }
 
 #Retrofit Gson
 #retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit2" }
@@ -57,6 +60,7 @@ hilt-android = { group ="com.google.dagger", name ="hilt-android", version.ref =
 hilt-compiler = { group ="com.google.dagger", name = "hilt-compiler", version.ref ="dagger-hilt"}
 hilt-navigation =  {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref ="hilt-navigation"}
 navigation-compose = {group = "androidx.navigation", name = "navigation-compose", version.ref ="navigation-compose"}
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -64,3 +68,4 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 android-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
 android-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "pluginSerialization" }
+android-library = { id = "com.android.library", version.ref = "agp" }

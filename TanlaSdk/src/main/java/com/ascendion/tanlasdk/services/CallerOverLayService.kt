@@ -1,4 +1,4 @@
-package com.ascendion.tanla.services
+package com.ascendion.tanlasdk.services
 
 import android.app.Service
 import android.content.Intent
@@ -11,7 +11,6 @@ import android.view.Gravity
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.compose.ui.platform.ComposeView
-import com.ascendion.tanla.ui.presentation.CallerBannerScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -43,14 +42,14 @@ class CallerOverLayService : Service() {
     private fun setUpOverlay(number: String) {
         composeView?.let {
             ComposeView(this).apply {
-                setContent {
-                    CallerBannerScreen(
-                        number,
-                        onAccept = { stopSelf() },
-                        onReject = { stopSelf() },
-                        onReportSpam = { stopSelf() }
-                    )
-                }
+//                setContent {
+//                    CallerBannerScreen(
+//                        number,
+//                        onAccept = { stopSelf() },
+//                        onReject = { stopSelf() },
+//                        onReportSpam = { stopSelf() }
+//                    )
+//                }
             }
         }
 

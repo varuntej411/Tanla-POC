@@ -1,6 +1,6 @@
 package com.ascendion.tanla.di
 
-import com.ascendion.tanla.data.ApiService
+import com.ascendion.tanla.data.remote.ApiService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
