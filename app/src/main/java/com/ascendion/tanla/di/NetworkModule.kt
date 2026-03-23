@@ -1,6 +1,7 @@
 package com.ascendion.tanla.di
 
 import com.ascendion.tanla.data.remote.ApiService
+import com.ascendion.tanlasdk.core.TanlaSDKConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -12,6 +13,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -44,15 +46,19 @@ object NetworkModule {
 
         return OkHttpClient.Builder()
             .addInterceptor(headerTokenInterceptor)
+            .connectTimeout(3, TimeUnit.SECONDS)
+            .readTimeout(3, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
             .addInterceptor(loggingInterceptor)
             .build()
     }
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient, json: Json, /*sdkConfig: SDKConfig*/): Retrofit {
         return Retrofit.Builder()
             .baseUrl("")
+           // .baseUrl(sdkConfig.baseUrl)
             .client(okHttpClient)
             .addConverterFactory(
                 json.asConverterFactory(

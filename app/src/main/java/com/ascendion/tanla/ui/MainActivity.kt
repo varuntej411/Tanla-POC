@@ -15,11 +15,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.ascendion.tanla.ui.theme.TanlaPocTheme
+import com.ascendion.tanlasdk.core.TanlaCallScreeningSDK
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set XML or Compose handler
+        // TanlaCallScreeningSDK.setUIHandler(XmlCallUIHandler())
+        // Or Compose
+        // CallScreeningSDK.setUIHandler(ComposeCallUIHandler())
+
+         TanlaCallScreeningSDK.requestDefaultDialer(this)
+        // TanlaCallScreeningSDK.requestOverlayPermission(this)
+
         setContent {
             TanlaPocTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -31,32 +40,34 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+    @Composable
+    fun Greeting(name: String, modifier: Modifier = Modifier) {
 
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
-    ) {
-        Button(
-            onClick = {
-
-            }
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "Click me",
-                color = Color.White
-            )
+            Button(
+                onClick = {
+                    TanlaCallScreeningSDK.requestOverlayPermission(this@MainActivity)
+                }
+            ) {
+                Text(
+                    text = "Click me + $name",
+                    color = Color.White
+                )
+            }
         }
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TanlaPocTheme {
-        Greeting("Android")
+    @Preview(showBackground = true)
+    @Composable
+    fun GreetingPreview() {
+        TanlaPocTheme {
+            Greeting(
+                "Android", modifier = Modifier
+            )
+        }
     }
 }
