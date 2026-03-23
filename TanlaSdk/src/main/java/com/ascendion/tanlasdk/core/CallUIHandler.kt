@@ -1,7 +1,23 @@
 package com.ascendion.tanlasdk.core
 
-import android.content.Context
-
 interface CallUIHandler {
-    fun onIncomingCall(context: Context, number: String)
+
+    /**
+     * Called when incoming call detected
+     */
+    fun showIncomingCallUI(number: String)
+
+    /**
+     * Remove overlay / UI
+     */
+    fun removeUI()
+
+    /**
+     * User actions
+     */
+    fun onAccept()
+
+    fun onDecline()
+
+    fun onReport()
 }

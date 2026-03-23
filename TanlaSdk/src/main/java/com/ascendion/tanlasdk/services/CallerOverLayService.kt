@@ -8,50 +8,69 @@ import android.os.IBinder
 import android.telephony.TelephonyCallback
 import android.telephony.TelephonyManager
 import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
-import androidx.compose.ui.platform.ComposeView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.ascendion.tanlasdk.ui.renderer.OverlayActions
+
+import com.ascendion.tanlasdk.core.TanlaCallScreeningSDK
+import com.ascendion.tanlasdk.core.TanlaSDKConfigHolder
+import kotlinx.coroutines.*
 
 @RequiresApi(Build.VERSION_CODES.S)
 class CallerOverLayService : Service() {
-    private lateinit var windowsManager: WindowManager
-    private var composeView: ComposeView? = null
-    private val scope = CoroutineScope(context = SupervisorJob() + Dispatchers.Main)
+
+    private lateinit var windowManager: WindowManager
+    private var overlayView: View? = null
+
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
     private lateinit var telephonyManager: TelephonyManager
     private var callback: TelephonyCallback? = null
 
+    override fun onCreate() {
+        super.onCreate()
+        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
         val number = intent?.getStringExtra("number") ?: "UNKNOWN"
-        setUpOverlay(number)
-        startTimeOut()
+
+        setupOverlay(number)
+        startTimeout()
         registerCallStateListener()
+
         return START_NOT_STICKY
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        windowsManager = getSystemService(WINDOW_SERVICE) as WindowManager
-    }
+    private fun setupOverlay(number: String) {
 
-    private fun setUpOverlay(number: String) {
-        composeView?.let {
-            ComposeView(this).apply {
-//                setContent {
-//                    CallerBannerScreen(
-//                        number,
-//                        onAccept = { stopSelf() },
-//                        onReject = { stopSelf() },
-//                        onReportSpam = { stopSelf() }
-//                    )
-//                }
+        // 🔥 Get renderer from SDK config
+        val renderer = TanlaSDKConfigHolder.getRenderer()
+
+        // 🔥 Create view using renderer (Compose OR XML)
+        overlayView = renderer.createView(
+            context = this,
+            number = number,
+            actions = object : OverlayActions {
+
+                override fun onAccept() {
+                    TanlaCallScreeningSDK.uiHandler.onAccept()
+                    stopSelf()
+                }
+
+                override fun onDecline() {
+                    TanlaCallScreeningSDK.uiHandler.onDecline()
+                    stopSelf()
+                }
+
+                override fun onReport() {
+                    TanlaCallScreeningSDK.uiHandler.onReport()
+                    stopSelf()
+                }
             }
-        }
+        )
 
         val params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -63,17 +82,18 @@ class CallerOverLayService : Service() {
             gravity = Gravity.TOP
         }
 
-        windowsManager.addView(composeView, params)
+        windowManager.addView(overlayView, params)
     }
 
-    private fun startTimeOut() {
+    private fun startTimeout() {
         scope.launch {
-            delay(10000)
+            delay(10_000)
             stopSelf()
         }
     }
 
     private fun registerCallStateListener() {
+
         telephonyManager = getSystemService(TelephonyManager::class.java)
 
         callback = object : TelephonyCallback(), TelephonyCallback.CallStateListener {
@@ -92,17 +112,19 @@ class CallerOverLayService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+
         scope.cancel()
+
         callback?.let {
             telephonyManager.unregisterTelephonyCallback(it)
         }
-        composeView?.let {
-            windowsManager.removeView(composeView)
+
+        overlayView?.let {
+            windowManager.removeView(it)
         }
-        composeView = null
+
+        overlayView = null
     }
 
-    override fun onBind(p0: Intent?): IBinder? {
-        return null
-    }
+    override fun onBind(intent: Intent?): IBinder? = null
 }
