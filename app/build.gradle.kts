@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.room.runtime)
     implementation(libs.room)
+    implementation(libs.androidx.compose.runtime)
     ksp(libs.ksp.room.compiler)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.android)
@@ -72,4 +73,6 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    implementation("androidx.compose.material:material-icons-extended")
 }

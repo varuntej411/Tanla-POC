@@ -22,6 +22,7 @@ navigation-compose = "2.9.7"
 appcompat = "1.7.1"
 material = "1.4.0"
 ui = "1.10.5"
+runtime = "1.10.5"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -61,6 +62,7 @@ hilt-compiler = { group ="com.google.dagger", name = "hilt-compiler", version.re
 hilt-navigation =  {group = "androidx.hilt", name = "hilt-navigation-compose", version.ref ="hilt-navigation"}
 navigation-compose = {group = "androidx.navigation", name = "navigation-compose", version.ref ="navigation-compose"}
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "runtime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

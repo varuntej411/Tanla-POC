@@ -22,7 +22,6 @@ object TanlaCallScreeningSDK {
 
     // 🔥 Central UI handler (used by services)
     lateinit var uiHandler: CallUIHandler
-        private set
 
     /**
      * SDK Initialization

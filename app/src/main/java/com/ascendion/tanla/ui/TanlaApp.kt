@@ -18,5 +18,6 @@ class TanlaApp: Application() {
                 enableOverlay = true
             )
         )
+        TanlaCallScreeningSDK.uiHandler = ComposeCallUIHandler(this)
     }
 }
