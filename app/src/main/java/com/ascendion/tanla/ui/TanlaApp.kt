@@ -1,7 +1,7 @@
 package com.ascendion.tanla.ui
 
 import android.app.Application
-import com.ascendion.tanlasdk.core.TanlaCallScreeningSDK
+import com.ascendion.tanlasdk.core.TanlaCallScreeningSdk
 import com.ascendion.tanlasdk.core.TanlaSDKConfig
 import dagger.hilt.android.HiltAndroidApp
 
@@ -9,7 +9,7 @@ import dagger.hilt.android.HiltAndroidApp
 class TanlaApp: Application() {
     override fun onCreate() {
         super.onCreate()
-        TanlaCallScreeningSDK.initialize(
+        TanlaCallScreeningSdk.initialize(
             this,
             TanlaSDKConfig(
                 baseUrl = "https://api.example.com/",
